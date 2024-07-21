@@ -9,10 +9,4 @@ repository = "https://github.com/skyf0l/gmp-ecm-rs"
 license = "LGPL-3.0+"
 categories = ["external-ffi-bindings", "mathematics"]
 keywords = ["primes", "ffi", "gmp", "bignum", "math"]
-include = [
-  "src/**/*",
-  "Cargo.toml",
-  "LICENSE*",
-  "README.md",
-]
 readme = "README.md"

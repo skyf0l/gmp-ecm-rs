@@ -24,7 +24,7 @@ jobs:
     - uses: swatinem/rust-cache@23bce251a8cd2ffc3c1075eaa2367cf899916d84 # v2.7.3
 
     - name: Check coding style
-      run: cargo fmt --check --all
+      run: cargo fmt --check
 
   clippy:
     name: Clippy
@@ -40,7 +40,7 @@ jobs:
     - uses: swatinem/rust-cache@23bce251a8cd2ffc3c1075eaa2367cf899916d84 # v2.7.3
 
     - name: Lint
-      run: cargo clippy --all --all-targets  --all-features -- -D warnings
+      run: cargo clippy --all-targets  --all-features -- -D warnings
 
   docs:
     name: Docs
@@ -54,7 +54,7 @@ jobs:
     - uses: dtolnay/rust-toolchain@stable
     - uses: swatinem/rust-cache@23bce251a8cd2ffc3c1075eaa2367cf899916d84 # v2.7.3
 
-    - run: cargo doc --all --no-deps
+    - run: cargo doc --no-deps
 
   tests:
     name: Tests
@@ -70,7 +70,7 @@ jobs:
         tool: cargo-nextest
 
     - name: Test
-      run: cargo nextest run -all --all-features
+      run: cargo nextest run --all-features
 
   coverage:
     name: Coverage
@@ -86,7 +86,7 @@ jobs:
         tool: cargo-nextest,cargo-llvm-cov
 
     - name: Tests
-      run: cargo llvm-cov nextest --all --lcov --output-path lcov.info --all-features
+      run: cargo llvm-cov nextest --lcov --output-path lcov.info --all-features
 
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@e28ff129e5465c2c0dcc6f003fc735cb6ae0c673 # v4.5.0

@@ -1,0 +1,17 @@
+[package]
+name = "gmp-ecm"
+version = "0.1.0"
+edition = "2021"
+authors = ["skyf0l"]
+description = "Rust high-level bindings for GMP-ECM."
+repository = "https://github.com/skyf0l/gmp-ecm-rs"
+license = "LGPL-3.0+"
+categories = ["mathematics"]
+keywords = ["primes", "gmp", "bignum", "math", "ECM"]
+readme = "README.md"
+
+[dependencies]
+gmp-mpfr-sys = "1.5"
+gmp-ecm-sys = { path = "../gmp-ecm-sys", version = "0.1.0" }
+rug = { version = "1", default-features = false, features = ["integer", "rand"] }
+
