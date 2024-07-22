@@ -59,7 +59,6 @@ fn main() {
         },
         b2_min: args.b2_min,
         b2: args.b2,
-        ..Default::default()
     };
     let res = ecm_factor(&args.n, args.b1, &params);
     println!("Found factor: {:?}", res);
