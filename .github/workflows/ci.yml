@@ -68,6 +68,7 @@ jobs:
     - uses: taiki-e/install-action@3e71e7135de310b70bc22dccb4d275acde8e055a # v2.42.0
       with:
         tool: cargo-nextest
+    - run: sudo apt-get install -y libecm1-dev
 
     - name: Test
       run: cargo nextest run --all-features
@@ -84,6 +85,7 @@ jobs:
     - uses: taiki-e/install-action@3e71e7135de310b70bc22dccb4d275acde8e055a # v2.42.0
       with:
         tool: cargo-nextest,cargo-llvm-cov
+    - run: sudo apt-get install -y libecm1-dev
 
     - name: Tests
       run: cargo llvm-cov nextest --lcov --output-path lcov.info --all-features
@@ -109,6 +111,7 @@ jobs:
     - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
     - uses: dtolnay/rust-toolchain@stable
     - uses: swatinem/rust-cache@23bce251a8cd2ffc3c1075eaa2367cf899916d84 # v2.7.3
+    - run: sudo apt-get install -y libecm1-dev
 
     # msys2 required by rug on windows
     - name: Setup msys2 (windows)
