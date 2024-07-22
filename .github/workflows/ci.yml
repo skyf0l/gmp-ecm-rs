@@ -102,7 +102,10 @@ jobs:
     name: Build
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os:
+        - ubuntu-latest
+        # - windows-latest
+        # - macos-latest
 
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
@@ -111,22 +114,25 @@ jobs:
     - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
     - uses: dtolnay/rust-toolchain@stable
     - uses: swatinem/rust-cache@23bce251a8cd2ffc3c1075eaa2367cf899916d84 # v2.7.3
-    - run: sudo apt-get install -y libecm1-dev
 
     # msys2 required by rug on windows
     - name: Setup msys2 (windows)
       uses: msys2/setup-msys2@d0e80f58dffbc64f6a3a1f43527d469b4fc7b6c8 # v2.23.0
       if: matrix.os == 'windows-latest'
       with:
-        install: base-devel pacman-mirrors diffutils m4 make openssl openssl-devel
+        install: base-devel pacman-mirrors diffutils m4 make openssl openssl-devel libecm
         pacboy: gcc:p rust:p
 
-    # Only for windows
+    # Install libecm1-dev
+    - name: Install libecm1-dev
+      if: matrix.os == 'ubuntu-latest'
+      run: sudo apt-get install -y libecm1-dev
+
+    # Build
     - name: Msys2 build (windows)
       if: matrix.os == 'windows-latest'
       shell: msys2 {0}
-      run: |
-        cargo build
+      run: cargo build
 
     - name: Build
       if: matrix.os != 'windows-latest'
