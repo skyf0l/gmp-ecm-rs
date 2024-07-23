@@ -26,8 +26,10 @@
 //
 //  6. Use relative paths for configure otherwise msys/mingw might be
 //     confused with drives and such.
-
 #![cfg_attr(feature = "fail-on-warnings", deny(warnings))]
+#![allow(unused_variables)]
+#![allow(unused_assignments)]
+#![allow(dead_code)]
 
 use std::cmp::Ordering;
 use std::env;
@@ -283,7 +285,7 @@ fn need_compile(env: &Environment, ecm_ah: &(PathBuf, PathBuf)) -> bool {
         // if loading cache works, we're done
         return false;
     }
-    return !ecm_fine;
+    !ecm_fine
 }
 
 fn save_cache(env: &Environment, ecm_ah: &(PathBuf, PathBuf)) -> bool {
@@ -525,7 +527,7 @@ fn process_ecm_header(
         if let Some(start) = buf.find(s) {
             let version = buf[(start + s.len())..].trim();
             let version = version[1..version.len() - 1].split('.').collect::<Vec<_>>();
-            major = version.get(0).and_then(|v| v.parse::<i32>().ok());
+            major = version.first().and_then(|v| v.parse::<i32>().ok());
             minor = version.get(1).and_then(|v| v.parse::<i32>().ok());
             patchlevel = version.get(2).and_then(|v| v.parse::<i32>().ok());
         }
