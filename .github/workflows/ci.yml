@@ -40,7 +40,7 @@ jobs:
     - uses: swatinem/rust-cache@23bce251a8cd2ffc3c1075eaa2367cf899916d84 # v2.7.3
 
     - name: Lint
-      run: cargo clippy --all-targets  --all-features -- -D warnings
+      run: cargo clippy --all-targets -- -D warnings
 
   docs:
     name: Docs
@@ -70,7 +70,7 @@ jobs:
         tool: cargo-nextest
 
     - name: Test
-      run: cargo nextest run --all-features
+      run: cargo nextest run
 
   coverage:
     name: Coverage
@@ -86,7 +86,7 @@ jobs:
         tool: cargo-nextest,cargo-llvm-cov
 
     - name: Tests
-      run: cargo llvm-cov nextest --lcov --output-path lcov.info --all-features
+      run: cargo llvm-cov nextest --lcov --output-path lcov.info
 
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@e28ff129e5465c2c0dcc6f003fc735cb6ae0c673 # v4.5.0
@@ -112,6 +112,10 @@ jobs:
     - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
     - uses: dtolnay/rust-toolchain@stable
     - uses: swatinem/rust-cache@23bce251a8cd2ffc3c1075eaa2367cf899916d84 # v2.7.3
+
+    - name: Install automake (macos)
+      if: matrix.os == 'macos-latest'
+      run: brew install automake
 
     # msys2 required by rug on windows
     - name: Setup msys2 (windows)
