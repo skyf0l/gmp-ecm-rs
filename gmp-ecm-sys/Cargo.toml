@@ -10,3 +10,26 @@ license = "LGPL-3.0+"
 categories = ["external-ffi-bindings", "mathematics"]
 keywords = ["primes", "ffi", "gmp", "bignum", "math"]
 readme = "README.md"
+
+[dependencies]
+libc = { version = "0.2", default-features = false }
+
+[features]
+default = []
+
+# experimental features
+c-no-tests = []
+force-cross = []
+use-system-libs = []
+
+# undocumented features
+c-no-delete = []
+fail-on-warnings = []
+
+[build-dependencies]
+cc = { version = "1", features = ["parallel"] }
+pkg-config = "0.3"
+
+[target.'cfg(target_os = "windows")'.build-dependencies.windows-sys]
+features = ["Win32_Foundation", "Win32_Globalization", "Win32_System_Com", "Win32_UI_Shell"]
+version = "0.52"
