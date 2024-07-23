@@ -207,12 +207,13 @@ ecm_redc_n (mp_ptr rp, mp_srcptr x0p, mp_size_t xn,
      then there is a carry. We use a binary OR, which sets the zero flag
      if and only if both operands are zero. */
   cin = (mp_limb_t) ((xp[n - 1] | tp[n - 1]) ? 1 : 0);
-#ifdef HAVE___GMPN_ADD_NC
-  cy = __gmpn_add_nc (rp, tp + n, xp + n, n, cin);
-#else
+// Disabled to compile with GMP 6.3
+// #ifdef HAVE___GMPN_ADD_NC
+  // cy = __gmpn_add_nc (rp, tp + n, xp + n, n, cin);
+// #else
   cy = mpn_add_n (rp, tp + n, xp + n, n);
   cy += mpn_add_1 (rp, rp, n, cin);
-#endif
+// #endif
   /* since we add at most N-1 to the upper half of {x0p,2n},
      one adjustment is enough */
   if (cy)
@@ -2322,12 +2323,14 @@ mpresn_mul_1 (mpres_t R, const mpres_t S, const mp_limb_t m, mpmod_t modulus)
       t1[n] = mpn_mul_1 (t1, PTR(S), n, m);
       q = t1[0] * modulus->Nprim[0];
       t2[n] = mpn_mul_1 (t2, PTR(modulus->orig_modulus), n, q);
-#ifdef HAVE___GMPN_ADD_NC
-      q = __gmpn_add_nc (PTR(R), t1 + 1, t2 + 1, n, t1[0] != 0);
-#else
+      
+// Disabled to compile with GMP 6.3
+// #ifdef HAVE___GMPN_ADD_NC
+//       q = __gmpn_add_nc (PTR(R), t1 + 1, t2 + 1, n, t1[0] != 0);
+// #else
       q = mpn_add_n (PTR(R), t1 + 1, t2 + 1, n);
       q += mpn_add_1 (PTR(R), PTR(R), n, t1[0] != 0);
-#endif
+// #endif
       while (q != 0)
         q -= mpn_sub_n (PTR(R), PTR(R), PTR(modulus->orig_modulus), n);
     }
