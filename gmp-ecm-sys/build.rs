@@ -130,8 +130,8 @@ fn main() {
 
     let (version_prefix, version_patch) = get_version();
 
-    println!("cargo:rerun-if-env-changed=ECM_MPFR_SYS_CACHE");
-    let cache_dir = match env::var_os("ECM_MPFR_SYS_CACHE") {
+    println!("cargo:rerun-if-env-changed=GMP_ECM_SYS_CACHE");
+    let cache_dir = match env::var_os("GMP_ECM_SYS_CACHE") {
         Some(ref c) if c.is_empty() || c == "_" => None,
         Some(c) => Some(PathBuf::from(c)),
         None => system_cache_dir().map(|c| c.join("gmp-ecm-sys")),
