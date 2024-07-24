@@ -1,7 +1,7 @@
 use std::{str::FromStr, time::Duration};
 
 use clap::{command, Parser};
-use gmp_ecm::{ecm_factor, EcmMethod, EcmParams};
+use gmp_ecm::{ecm_factor, EcmMethod, EcmParams, NTT};
 use rug::Integer;
 use update_informer::{registry, Check};
 
@@ -32,9 +32,17 @@ struct Args {
     /// Stage 2 bound (all primes B1 <= p <= B2 are processed in step 2) [default: optimally computed from B1]
     #[clap(long, value_parser = parse_integer)]
     b2: Option<Integer>,
-    /// Stage 2 lower bound (all primes B2min <= p <= B2 are processed in step 2) [default: B1
+    /// Stage 2 lower bound (all primes B2min <= p <= B2 are processed in step 2) [default: B1]
     #[clap(long, value_parser = parse_integer)]
     b2_min: Option<Integer>,
+
+    // Stage 2 parameters
+    /// Always use NTT convolution routines in stage 2 [default: auto]
+    #[clap(long, conflicts_with = "no_ntt")]
+    ntt: bool,
+    /// Never use NTT convolution routines in stage 2 [default: auto]
+    #[clap(long, conflicts_with = "ntt")]
+    no_ntt: bool,
 }
 
 fn main() {
@@ -57,8 +65,15 @@ fn main() {
         } else {
             EcmMethod::Ecm
         },
-        b2_min: args.b2_min,
         b2: args.b2,
+        b2_min: args.b2_min,
+        ntt: if args.ntt {
+            NTT::Enabled
+        } else if args.no_ntt {
+            NTT::Disabled
+        } else {
+            NTT::Auto
+        },
     };
     let res = ecm_factor(&args.n, args.b1, &params);
     println!("Found factor: {:?}", res);
