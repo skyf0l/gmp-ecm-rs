@@ -1088,18 +1088,18 @@ extern "C" {
 }
 extern "C" {
     pub fn ecm_factor(
-        arg1: *mut __mpz_struct,
-        arg2: *mut __mpz_struct,
-        arg3: f64,
-        arg4: *mut __ecm_param_struct,
+        factor: *mut __mpz_struct,
+        n: *mut __mpz_struct,
+        b1: f64,
+        params: *mut __ecm_param_struct,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn ecm_init(arg1: *mut __ecm_param_struct);
+    pub fn ecm_init(params: *mut __ecm_param_struct);
 }
 extern "C" {
-    pub fn ecm_reset(arg1: *mut __ecm_param_struct);
+    pub fn ecm_reset(params: *mut __ecm_param_struct);
 }
 extern "C" {
-    pub fn ecm_clear(arg1: *mut __ecm_param_struct);
+    pub fn ecm_clear(params: *mut __ecm_param_struct);
 }
