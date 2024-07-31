@@ -104,7 +104,7 @@ jobs:
         os:
         - ubuntu-latest
         # - windows-latest
-        # - macos-latest
+        - macos-latest
 
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
@@ -116,7 +116,7 @@ jobs:
 
     - name: Install automake (macos)
       if: matrix.os == 'macos-latest'
-      run: brew install automake
+      run: brew install automake libtool
 
     # msys2 required by rug on windows
     - name: Setup msys2 (windows)
