@@ -131,9 +131,9 @@ checksum = "a12916984aab3fa6e39d655a33e09c0071eb36d6ab3aea5c2d78551f1df6d952"
 
 [[package]]
 name = "cc"
-version = "1.1.14"
+version = "1.1.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "50d2eb3cd3d1bf4529e31c215ee6f93ec5a3d536d9f578f93d9d33ee19562932"
+checksum = "57b6a275aa2903740dc87da01c62040406b8812552e97129a63ea8850a17c6e6"
 dependencies = [
  "jobserver",
  "libc",
@@ -725,9 +725,9 @@ dependencies = [
 
 [[package]]
 name = "rug"
-version = "1.25.0"
+version = "1.26.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "01d157703b9f96e9be75c739e7030d1d81be377d882d93046670309381517772"
+checksum = "9f86bdefce0edcc5493a2c5a2c87e57a40c78c772a7e6c48f25550e89815772b"
 dependencies = [
  "az",
  "gmp-mpfr-sys",
