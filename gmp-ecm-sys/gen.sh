@@ -25,3 +25,4 @@ bindgen wrapper.h -o src/bindings.rs \
     -- -I"$INCLUDE_DIR" -DUSE_ZLIB
 
 echo "Bindings generated successfully!"
+echo "Note: Parameter names are maintained manually - do not regenerate without preserving them."
