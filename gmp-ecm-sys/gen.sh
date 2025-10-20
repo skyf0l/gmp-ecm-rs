@@ -4,8 +4,13 @@
 # Run: cargo build
 # Then run this script
 
-OUT_DIR=${OUT_DIR:-../target/debug/build/gmp-ecm-sys-*/out}
-INCLUDE_DIR=$(find ../target/debug/build -name "gmp-ecm-sys-*" -type d | head -1)/out/include
+# Find the most recent build directory
+INCLUDE_DIR=$(find ../target/debug/build -name "gmp-ecm-sys-*" -type d -exec stat -c '%Y %n' {} + 2>/dev/null | sort -rn | head -1 | cut -d' ' -f2)/out/include
+
+# Fallback for macOS (stat has different syntax)
+if [ ! -d "$INCLUDE_DIR" ]; then
+    INCLUDE_DIR=$(find ../target/debug/build -name "gmp-ecm-sys-*" -type d -exec stat -f '%m %N' {} + 2>/dev/null | sort -rn | head -1 | cut -d' ' -f2)/out/include
+fi
 
 if [ ! -d "$INCLUDE_DIR" ]; then
     echo "Error: Include directory not found. Please run 'cargo build' first."
